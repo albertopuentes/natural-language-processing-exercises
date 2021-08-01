@@ -20,7 +20,7 @@ def basic_clean(string):
     .decode('utf-8', 'ignore')
     
     # remove anything that is not a through z, a number, a single quote, or whitespace
-    string = re.sub(r"[^a-z0-9'\s]", '', string).lower()
+    string = re.sub(r"[^\w'\s]", '', string).lower()
 
     return string
 
@@ -78,7 +78,7 @@ def remove_stopwords(string, extra_words = [], exclude_words = []):
     
     return string
     
- def prep_df(df, feature, extra_words = [], exclude_words = []):
+def prep_df(df, feature, extra_words = [], exclude_words = []):
     df['clean'] = df[feature].apply(basic_clean).apply(tokenize).apply(remove_stopwords)
     df['stemmed'] = df[feature].apply(basic_clean).apply(tokenize).apply(stem).apply(remove_stopwords)
     df['lemmatized'] = df[feature].apply(basic_clean).apply(tokenize).apply(lemmatize).apply(remove_stopwords)
